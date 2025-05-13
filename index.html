@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Daily Challenge</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        .header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .header .greeting {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+        .header .greeting h1 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .header .greeting p {
+            margin: 0;
+            color: #888;
+        }
+        .header .search-icon {
+            font-size: 20px;
+            color: #888;
+            cursor: pointer;
+        }
+        .daily-challenge {
+            background-color: #e0d7ff;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        .daily-challenge h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .daily-challenge p {
+            margin: 5px 0;
+            color: #888;
+        }
+        .daily-challenge .participants {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .daily-challenge .participants img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: -10px;
+            border: 2px solid #fff;
+        }
+        .daily-challenge .participants .more {
+            background-color: #888;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .daily-challenge img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+        }
+        .dates {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .dates .date {
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dates .date:hover {
+            transform: scale(1.1);
+        }
+        .dates .date p {
+            margin: 0;
+        }
+        .dates .date .day {
+            font-weight: bold;
+        }
+        .dates .date.active {
+            background-color: #000;
+            color: #fff;
+            border-radius: 50%;
+            padding: 10px;
+        }
+        .plan {
+            margin: 20px 0;
+        }
+        .plan h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .plan .activity {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .plan .activity:hover {
+            transform: translateY(-5px);
+        }
+        .plan .activity.medium {
+            background-color: #ffebcc;
+        }
+        .plan .activity.light {
+            background-color: #d7f0ff;
+        }
+        .plan .activity h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .plan .activity p {
+            margin: 5px 0;
+            color: #888;
+        }
+        .plan .activity .trainer {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .plan .activity .trainer img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .plan .activity .trainer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .plan .activity img {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+        }
+        .social {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .social a {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            color: #888;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .social a:hover {
+            transform: scale(1.1);
+        }
+        .social a.youtube:hover {
+            background-color: #FF0000;
+            color: white;
+        }
+        .social a.instagram:hover {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+        .social a.twitter:hover {
+            background-color: #1DA1F2;
+            color: white;
+        }
+        .social a.facebook:hover {
+            background-color: #1877F2;
+            color: white;
+        }
+        .video-container {
+            margin: 20px 0;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            padding: 15px;
+        }
+        .video-container h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        .video-container h3 i {
+            margin-right: 10px;
+        }
+        .video-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .video-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        .video-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .video-item .video-info {
+            flex: 1;
+        }
+        .video-item .video-info h4 {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .video-item .video-info p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: #888;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-top: 1px solid #f5f5f5;
+        }
+        .footer a {
+            color: #888;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        .footer a:hover {
+            color: #000;
+            transform: scale(1.1);
+        }
+        .tab-container {
+            display: flex;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .tab {
+            padding: 8px 15px;
+            background-color: #f5f5f5;
+            border-radius: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .tab:hover {
+            background-color: #e0e0e0;
+        }
+        .tab.active {
+            background-color: #000;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img alt="User profile picture" height="40" src="https://storage.googleapis.com/a1aa/image/o1JhcrUZv5lY7tKXZWQfMNVhz1s4Yzt1dSnnmfJWXfE.jpg" width="40"/>
+            <div class="greeting">
+                <h1>Hello, Sandra</h1>
+                <p>Today 25 Nov.</p>
+            </div>
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <div class="daily-challenge">
+            <h2>Daily challenge</h2>
+            <p>Do your plan before 09:00 AM</p>
+            <div class="participants">
+                <img alt="Participant 1" height="30" src="https://storage.googleapis.com/a1aa/image/_lwfeB9h6Vj-28D0tEOYSnS8auWnRLNXacV6aSnfu0s.jpg" width="30"/>
+                <img alt="Participant 2" height="30" src="https://storage.googleapis.com/a1aa/image/GtOng784_MYUHEZ_3On-qsqaBqN9wGjoNTDLWZ_0uOE.jpg" width="30"/>
+                <img alt="Participant 3" height="30" src="https://storage.googleapis.com/a1aa/image/tuUeCL6yUzD4qhT80JA0yqstbI7cdKNc41Cj5Xk-ZBg.jpg" width="30"/>
+                <div class="more">+4</div>
+            </div>
+            <img alt="Decorative image" height="80" src="https://storage.googleapis.com/a1aa/image/_fNTDxQ2Lk8GZku3wRLGVrDf3kdhsJloIt06cfpbI8k.jpg" width="80"/>
+        </div>
+
+        <div class="dates">
+            <div class="date">
+                <p class="day">Sun</p>
+                <p>22</p>
+            </div>
+            <div class="date">
+                <p class="day">Mon</p>
+                <p>23</p>
+            </div>
+            <div class="date">
+                <p class="day">Tue</p>
+                <p>24</p>
+            </div>
+            <div class="date active">
+                <p class="day">Wed</p>
+                <p>25</p>
+            </div>
+            <div class="date">
+                <p class="day">Thu</p>
+                <p>26</p>
+            </div>
+            <div class="date">
+                <p class="day">Fri</p>
+                <p>27</p>
+            </div>
+            <div class="date">
+                <p class="day">Sat</p>
+                <p>28</p>
+            </div>
+        </div>
+
+        <div class="plan">
+            <h2>Your plan</h2>
+            <div class="activity medium">
+                <div>
+                    <h3>Yoga Group</h3>
+                    <p>25 Nov.</p>
+                    <p>14:00-15:00</p>
+                    <p>A5 room</p>
+                    <div class="trainer">
+                        <img alt="Trainer Tiffany Way" height="30" src="https://storage.googleapis.com/a1aa/image/rSHkXdhviMY0QPLHcD9XgXumySDNLeLfyKWkE_nKac8.jpg" width="30"/>
+                        <p>Trainer Tiffany Way</p>
+                    </div>
+                </div>
+                <img alt="Decorative image" height="50" src="https://storage.googleapis.com/a1aa/image/_fNTDxQ2Lk8GZku3wRLGVrDf3kdhsJloIt06cfpbI8k.jpg" width="50"/>
+            </div>
+            <div class="activity light">
+                <div>
+                    <h3>Balance</h3>
+                    <p>28 Nov.</p>
+                    <p>18:00-19:30</p>
+                    <p>A2 room</p>
+                </div>
+                <img alt="Decorative image" height="50" src="https://storage.googleapis.com/a1aa/image/_fNTDxQ2Lk8GZku3wRLGVrDf3kdhsJloIt06cfpbI8k.jpg" width="50"/>
+            </div>
+        </div>
+
+        <div class="tab-container">
+            <div class="tab active" onclick="showTab('youtube')">
+                <i class="fab fa-youtube"></i> YouTube
+            </div>
+            <div class="tab" onclick="showTab('instagram')">
+                <i class="fab fa-instagram"></i> Instagram
+            </div>
+            <div class="tab" onclick="showTab('facebook')">
+                <i class="fab fa-facebook"></i> Facebook
+            </div>
+        </div>
+
+        <div id="youtube-content" class="tab-content active">
+            <div class="video-container">
+                <h3><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube Videos</h3>
+                <div class="video-item" onclick="window.open('https://youtu.be/9wwkqP-6oXQ?si=8dL4YtLlAW1UdJEJ', '_blank')">
+                    <img src="https://img.youtube.com/vi/9wwkqP-6oXQ/hqdefault.jpg" alt="Video thumbnail">
+                    <div class="video-info">
+                        <h4>Morning Yoga Routine</h4>
+                        <p>15 min • Beginner level</p>
+                    </div>
+                </div>
+                <div class="video-item" onclick="window.open('https://youtu.be/vg1-pwDdFFs?si=MJPcUUZvWJE8gSKr', '_blank')">
+                    <img src="https://img.youtube.com/vi/vg1-pwDdFFs/hqdefault.jpg" alt="Video thumbnail">
+                    <div class="video-info">
+                        <h4>Full Body Stretch</h4>
+                        <p>20 min • Intermediate level</p>
+                    </div>
+                </div>
+                <div class="video-item" onclick="window.open('https://youtu.be/c9-m0whU-cw?si=swt3np2efl25e7_T', '_blank')">
+                    <img src="https://img.youtube.com/vi/c9-m0whU-cw/hqdefault.jpg" alt="Video thumbnail">
+                    <div class="video-info">
+                        <h4>Advanced Yoga Poses</h4>
+                        <p>25 min • Advanced level</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="instagram-content" class="tab-content">
+            <div class="video-container">
+                <h3><i class="fab fa-instagram" style="color: #E1306C;"></i> Instagram Reels</h3>
+                <div class="video-item" onclick="window.open('https://www.instagram.com/reel/DDj3d0XyZck/?igsh=NDh2cG5rNmI4Znk3', '_blank')">
+                    <img src="https://via.placeholder.com/60" alt="Instagram thumbnail">
+                    <div class="video-info">
+                        <h4>Quick Morning Stretch</h4>
+                        <p>1 min • Beginner level</p>
+                    </div>
+                </div>
+                <div class="video-item" onclick="window.open('https://www.instagram.com/reel/C-wbnSwvSok/?igsh=N3NrZG02aDd4NnNq', '_blank')">
+                    <img src="https://via.placeholder.com/60" alt="Instagram thumbnail">
+                    <div class="video-info">
+                        <h4>Meditation Tips</h4>
+                        <p>2 min • All levels</p>
+                    </div>
+                </div>
+                <div class="video-item" onclick="window.open('https://www.instagram.com/reel/DDIN5a9Nmj8/?igsh=cXcyN2t0dDFlZnQ3', '_blank')">
+                    <img src="https://via.placeholder.com/60" alt="Instagram thumbnail">
+                    <div class="video-info">
+                        <h4>Yoga for Back Pain</h4>
+                        <p>3 min • Intermediate level</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="facebook-content" class="tab-content">
+            <div class="video-container">
+                <h3><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook Videos</h3>
+                <div class="video-item" onclick="window.open('https://www.facebook.com/ayuputri.sandi/videos/1304314990857430/?rdid=LyABI48QnIZFEsx3#', '_blank')">
+                    <img src="https://via.placeholder.com/60" alt="Facebook thumbnail">
+                    <div class="video-info">
+                        <h4>Yoga with Friends</h4>
+                        <p>10 min • Group session</p>
+                    </div>
+                </div>
+                <div class="video-item" onclick="window.open('https://www.facebook.com/luna.setiati.7/videos/2201939810221366/?rdid=HlxxW2DruTztOAVV#', '_blank')">
+                    <img src="https://via.placeholder.com/60" alt="Facebook thumbnail">
+                    <div class="video-info">
+                        <h4>Morning Routine</h4>
+                        <p>15 min • Daily practice</p>
+                    </div>
+                </div>
+                <div class="video-item" onclick="window.open('https://www.facebook.com/luna.setiati.7/videos/549666990948664/?rdid=NDqvoTMsuo6Q3kxf#', '_blank')">
+                    <img src="https://via.placeholder.com/60" alt="Facebook thumbnail">
+                    <div class="video-info">
+                        <h4>Relaxation Techniques</h4>
+                        <p>12 min • Stress relief</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="social">
+            <a href="https://www.instagram.com" class="instagram" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com" class="youtube" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.twitter.com" class="twitter" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.facebook.com" class="facebook" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+
+        <div class="footer">
+            <a href="#">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="#">
+                <i class="fas fa-th-large"></i>
+            </a>
+            <a href="#">
+                <i class="fas fa-chart-bar"></i>
+            </a>
+            <a href="#">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content and mark tab as active
+            document.getElementById(tabId + '-content').classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Date click functionality
+        document.querySelectorAll('.date').forEach(date => {
+            date.addEventListener('click', function() {
+                document.querySelector('.date.active').classList.remove('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Activity click functionality
+        document.querySelectorAll('.activity').forEach(activity => {
+            activity.addEventListener('click', function() {
+                alert('You clicked on: ' + this.querySelector('h3').textContent);
+            });
+        });
+
+        // Search icon functionality
+        document.querySelector('.search-icon').addEventListener('click', function() {
+            const searchTerm = prompt('What would you like to search for?');
+            if (searchTerm) {
+                alert('Searching for: ' + searchTerm);
+            }
+        });
+    </script>
+</body>
+</html>
